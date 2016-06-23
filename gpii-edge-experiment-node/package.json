@@ -1,0 +1,19 @@
+{
+  "name": "gpii-edge-experiment",
+  "version": "1.0.0",
+  "description": "experiments for the gpii edgejs integration",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "gpii",
+    "edgejs",
+    ".net"
+  ],
+  "dependencies": {
+    "edge": "latest"
+  },
+  "author": "Benjamin Stokes",
+  "license": "MIT"
+}
