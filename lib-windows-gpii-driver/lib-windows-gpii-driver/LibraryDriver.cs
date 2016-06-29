@@ -1,24 +1,20 @@
-﻿using static System.Diagnostics.Debug;
-using GPII.SystemSettings;
+﻿
 
-namespace GPII
+using System;
+
+namespace GPII.drivers
 {
     class LibraryDriver
     {
+        [STAThread]
         static void Main(string[] args)
         {
-            ToggleStickyKeys();
-        }
 
-        static void ToggleStickyKeys()
-        {
-            StickyKeys stickyKeys = new StickyKeys();
+            HighContrastDriver.ToggleHighContrast();
+            HighContrastDriver.TestMultipleInstantionations();
+            // StickyKeysDriver.ToggleStickyKeys();
 
-            stickyKeys.TurnOn();
-            Assert(new StickyKeys().IsOn);
-
-            stickyKeys.TurnOff();
-            Assert(new StickyKeys().IsOn == false);
+            Console.ReadLine();
         }
     }
 }

@@ -10,6 +10,10 @@ namespace GPII.WindowsAPI
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SystemParametersInfo(uiActions uiAction, uint uiParam, ref StickyKeys.Win32Struct pvParam, SPIFlags fWinIni);
 
+        [DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SystemParametersInfo(uiActions uiAction, int uiParam, ref HighContrast.Win32Struct pvParam, SPIFlags fWinIni);
+
         public enum uiActions : uint
         {
             SPI_GETHIGHCONTRAST = 0x0042,

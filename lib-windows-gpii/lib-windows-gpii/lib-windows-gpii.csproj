@@ -41,8 +41,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EdgeBindings.cs" />
+    <Compile Include="HighContrast.cs" />
     <Compile Include="StickyKeyModifier.cs" />
     <Compile Include="StickyKeys.cs" />
+    <Compile Include="todo.cs" />
     <Compile Include="user32.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
