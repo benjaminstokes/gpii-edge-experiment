@@ -137,36 +137,4 @@ namespace GPII.SystemSettings
             Default
         }
     }
-
-    public class NativeMethods
-    {
-        public const int HCF_HIGHCONTRASTON = 0x0001;
-
-        public const int SPI_GETHIGHCONTRAST = 0x0042;
-
-        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-        public struct HIGHCONTRAST
-        {
-            public int cbSize;
-            public int dwFlags;
-#if SHOW_PINVOKE_BUG
-            [MarshalAs(UnmanagedType.LPTStr)]
-            public string lpszDefaultScheme;
-#else
-            public IntPtr lpszDefaultScheme;
-#endif
-            /*
-            /*/
-            //*/
-        }
-
-        [DllImport("user32.dll", CharSet = CharSet.Auto)]//, CharSet = CharSet.Unicode)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        public extern static bool SystemParametersInfo(
-          uiActions uiAction,
-          int uiParam,
-          ref HighContrast.Win32Struct pvParam,
-          SPIFlags fWinIni);
-
-    }
 }
