@@ -1,24 +1,30 @@
-#Description
-This repo contains experimental code for calling the Win32 API via Edgejs for the GPII. 
+# gpii-edge-experiment
 
-lib-windows-gpii is a c# .NET class library that provides a wrapper around the Win32 SystemParameterInfo.
+This repo contains experimental code for calling the Win32 API via .NET via Edgejs for the GPII. 
 
-lib-windows-gpii-driver is a simple driver project to use the class library.
+##Contents
+The repo has three projects:
+`lib-windows-gpii` is the c# .NET class library providing a .NET wrapper around Windows API functionality like the SystemParemeterInfo function. 
 
-gpii-edge-experiment-node is a nodejs project that uses the edgejs package to call into lib-windows-gpii
+`lib-windows-gpii-driver` is a c# .NET console application used in development to test functionality within `lib-windows-gpii`
 
-To set up:
+`lib-windows-gpii-edgejs-driver` is a nodejs application that demonstrates how functionality in `lib-windows-gpii` can be accessed from nodejs. 
 
-Clone this repository. Download and install nodejs and Visual Studio Community 2015.
+##Tools
+You will need [Visual Studio 2015 (Community)](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx) to build the .NET projects.
 
-Run npm install inside gpii-edge-experiment-node folder.
-Open the lib-windows-gpii project and build it with visual studio. There should be a .dll file created in the project's Debug folder. 
+##Set up
+1. Clone this repository
+2. Download and install nodejs and [Visual Studio 2015 (Community)](https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx)
+3. Run npm install within `lib-windows-gpii-edgejs-driver` folder
+4. Build `lib-windows-gpii` with Visual Studio to ensure a .dll file is created in the project's Debug folder
+5. Run node index.js to demonstrate accessing Windows API functionality via node->edge->.NET 
 
-Run node index.js. Observe via the control panel that sticky keys will be enabled and disabled. You will have to open the control panel
-again to see the checkbox refresh for now. 
+##Tracing the code
+There are many layers of code and technology in this experiment. The top most layer is the nodejs project in  `lib-windows-gpii-edgejs-driver.` The `dotnetfunctions.js` uses edgejs to export nodejs bindings for .NET functions contained within the `lib-windows-gpii` library. These .NET functions wrap the Windows API functionality. 
 
-#Tracing the code
+Lets look at High Contrast as an example:
 
-Look at gpii-edge-experiment-node/index.js. This sets up some functions that point to the GPII.edge.EdgeBindings functions defined in 
-libe-windows-gpii/EdgeBindings.cs. These functions create a StickyKeys object and use its TurnOn and TurnOff functions. Behind the scenes, these functions are
-using the user32.cs wrapper around the Windows API's SystemsParameterInfo function call. 
+The [`lib-windows-gpii/HighContrast.cs` class](https://github.com/benjaminstokes/gpii-edge-experiment/blob/master/lib-windows-gpii/lib-windows-gpii/HighContrast.cs) provides a .NET wrapper around the Windows API SystemParametersInfo function. The HighContrast class accesses the Windows API via .NET's ability to call out to native functions which is set up in [`lib-windows-gpii/user32.cs`](https://github.com/benjaminstokes/gpii-edge-experiment/blob/master/lib-windows-gpii/lib-windows-gpii/user32.cs). 
+
+Next, the [`lib-windows-gpii/EdgeBindings.cs` class](https://github.com/benjaminstokes/gpii-edge-experiment/blob/master/lib-windows-gpii/lib-windows-gpii/EdgeBindings.cs) provides async conveinence methods that can be called from edgejs/nodejs. These methods use the .NET HighContrast wrapper to access the Windows API to get and set high contrast settings on the system. 
