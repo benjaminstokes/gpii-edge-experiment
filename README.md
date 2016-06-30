@@ -4,6 +4,7 @@ This repo contains experimental code for calling the Win32 API via .NET via Edge
 
 ##Contents
 The repo has three projects:
+
 `lib-windows-gpii` is the c# .NET class library providing a .NET wrapper around Windows API functionality like the SystemParemeterInfo function. 
 
 `lib-windows-gpii-driver` is a c# .NET console application used in development to test functionality within `lib-windows-gpii`
@@ -21,10 +22,8 @@ You will need [Visual Studio 2015 (Community)](https://www.visualstudio.com/en-u
 5. Run node index.js to demonstrate accessing Windows API functionality via node->edge->.NET 
 
 ##Tracing the code
-There are many layers of code and technology in this experiment. The top most layer is the nodejs project in  `lib-windows-gpii-edgejs-driver.` The `dotnetfunctions.js` uses edgejs to export nodejs bindings for .NET functions contained within the `lib-windows-gpii` library. These .NET functions wrap the Windows API functionality. 
-
 Lets look at High Contrast as an example:
 
-The [`lib-windows-gpii/HighContrast.cs` class](https://github.com/benjaminstokes/gpii-edge-experiment/blob/master/lib-windows-gpii/lib-windows-gpii/HighContrast.cs) provides a .NET wrapper around the Windows API SystemParametersInfo function. The HighContrast class accesses the Windows API via .NET's ability to call out to native functions which is set up in [`lib-windows-gpii/user32.cs`](https://github.com/benjaminstokes/gpii-edge-experiment/blob/master/lib-windows-gpii/lib-windows-gpii/user32.cs). 
+There are many layers of code and technology in this experiment. The top most layer is the nodejs project in  `lib-windows-gpii-edgejs-driver.` The [`dotnetfunctions.js` module](https://github.com/benjaminstokes/gpii-edge-experiment/blob/master/lib-windows-gpii-edgejs-driver/dotnetfunctions.js) uses edgejs to export nodejs bindings for .NET functions contained within the `lib-windows-gpii` library. The [`highcontrast.js` module](https://github.com/benjaminstokes/gpii-edge-experiment/blob/master/lib-windows-gpii-edgejs-driver/highcontrast.js) makes use of these bindings.
 
-Next, the [`lib-windows-gpii/EdgeBindings.cs` class](https://github.com/benjaminstokes/gpii-edge-experiment/blob/master/lib-windows-gpii/lib-windows-gpii/EdgeBindings.cs) provides async conveinence methods that can be called from edgejs/nodejs. These methods use the .NET HighContrast wrapper to access the Windows API to get and set high contrast settings on the system. 
+The entry point from nodejs to .NET is in the [`lib-windows-gpii/EdgeBindings.cs` class](https://github.com/benjaminstokes/gpii-edge-experiment/blob/master/lib-windows-gpii/lib-windows-gpii/EdgeBindings.cs) which provides async conveinence methods that can be called from edgejs/nodejs. These methods use the [`lib-windows-gpii/HighContrast.cs` class](https://github.com/benjaminstokes/gpii-edge-experiment/blob/master/lib-windows-gpii/lib-windows-gpii/HighContrast.cs), a .NET wrapper around the Windows API SystemParametersInfo function. The HighContrast class accesses the Windows API via .NET's ability to call out to native functions which is set up in [`lib-windows-gpii/user32.cs`](https://github.com/benjaminstokes/gpii-edge-experiment/blob/master/lib-windows-gpii/lib-windows-gpii/user32.cs). 
