@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using GPII.SystemSettings;
+using System.IO;
 
 namespace GPII.edge
 {
@@ -20,33 +21,23 @@ namespace GPII.edge
             return true;
         }
 
-        public async Task<object> JSONPassTest(object input)
+        public async Task<object> TurnOnHighContrast(object input)
         {
-            Console.WriteLine(input.ToString());
+            var highContrast = new HighContrast();
+            highContrast.TurnOn(HighContrast.ColorSchemes.HighContrastBlack);
             return true;
         }
 
-        public async Task<object> JSONReturnTest(object input)
+        public async Task<object> TurnOffHighContrast(object input)
         {
-            var anonymousReturnSample = new
-            {
-                error = false,
-                data = new
-                {
-                    key1 = "some data1",
-                    key2 = "some data2",
-                    ids = new[]
-                    {
-                        new {
-                            item1 = "item1",
-                            item2 = "item2"
-                        }
-
-                    }
-                }
-            };
-
-            return anonymousReturnSample;
+            var highContrast = new HighContrast();
+            highContrast.TurnOff();
+            return true;
         }
+
+        public async Task<object> SendAndReturnJSON(object input)
+        {
+            return input;
+        }        
     }
 }

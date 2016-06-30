@@ -77,9 +77,9 @@ namespace GPII.SystemSettings
             string colorSchemeText = GetColorSchemeText(scheme);
             win32Struct.lpszDefaultScheme = Marshal.StringToHGlobalUni(colorSchemeText);
             win32Struct.dwFlags = (int)flags;
-            win32Struct.cbSize = Marshal.SizeOf(win32Struct); ;
+            win32Struct.cbSize = Marshal.SizeOf(win32Struct);
             bool result = SystemParametersInfo(uiActions.SPI_SETHIGHCONTRAST, win32Struct.cbSize, ref win32Struct, 0);
-            Marshal.FreeHGlobal(win32Struct.lpszDefaultScheme);
+            Marshal.FreeHGlobal(win32Struct.lpszDefaultScheme); // TODO: Ensure this memory is freed via try/catch/finally
             if (!result) throw new System.ComponentModel.Win32Exception();
         }
 

@@ -13,7 +13,7 @@
  *     - This can allow structures used in SPI to have matching names as in the docs rather than a generic Win32Struct
  *       nested in a managed class.
  *  - Apply/Verify/Update GPII style guidelines for a .NET codebase
- * 
+ *  - Adjust scope modifiers. Can everything be internal/private except for EdgeBindings.cs which will be public?
  * 
  * 
  */
