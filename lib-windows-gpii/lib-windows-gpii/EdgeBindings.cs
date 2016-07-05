@@ -24,20 +24,23 @@ namespace GPII.edge
         public async Task<object> TurnOnHighContrast(object input)
         {
             var highContrast = new HighContrast();
-            highContrast.TurnOn(HighContrast.ColorSchemes.HighContrastBlack);
+            highContrast.IsHighContrastOn = true;
+            highContrast.Theme = HighContrast.ColorSchemes.HighContrastBlack;
+            highContrast.Apply();
             return true;
         }
 
         public async Task<object> TurnOffHighContrast(object input)
         {
             var highContrast = new HighContrast();
-            highContrast.TurnOff();
+            highContrast.IsHighContrastOn = false;
+            highContrast.Apply();
             return true;
         }
 
         public async Task<object> SendAndReturnJSON(object input)
         {
             return input;
-        }        
+        }
     }
 }

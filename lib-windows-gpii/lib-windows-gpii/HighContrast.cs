@@ -14,40 +14,66 @@ namespace GPII.SystemSettings
         /// <summary>
         /// The high contrast feature is available.
         /// </summary>
-        public bool IsHighContrastAvailable { get { return this.flags.HasFlag(Flags.HCF_AVAILABILE); } }
+        public bool IsHighContrastAvailable { get; }
         /// <summary>
         /// A confirmation dialog appears when the high contrast feature is activated by using the hot key.
         /// </summary>
-        public bool IsConfirmDialogEnabled { get { return this.flags.HasFlag(Flags.HCF_CONFIRMHOTKEY); } }
+        public bool IsConfirmDialogEnabled { get; set; }
         /// <summary>
         /// The high contrast feature is on.
         /// </summary>
-        public bool IsHighContrastOn { get { return this.flags.HasFlag(Flags.HCF_HIGHCONTRASTON); } }
+        public bool IsHighContrastOn { get; set; }
         /// <summary>
         /// The user can turn the high contrast feature on and off by simultaneously pressing the left ALT, left SHIFT, and PRINT SCREEN keys.
         /// </summary>
-        public bool IsHotKeyActive { get { return this.flags.HasFlag(Flags.HCF_HOTKEYACTIVE); } }
+        public bool IsHotKeyActive { get; set; }
         /// <summary>
         ///  The hot key associated with the high contrast feature can be enabled. An application can retrieve this value, but cannot set it.
         /// </summary>
-        public bool IsHotKeyAvailable { get { return this.flags.HasFlag(Flags.HCF_HOTKEYAVAILABLE); } }
+        public bool IsHotKeyAvailable { get; }
         /// <summary>
         /// A siren is played when the user turns the high contrast feature on or off by using the hot key.
         /// </summary>
-        public bool IsOnOffSirenEnabled { get { return this.flags.HasFlag(Flags.HCF_HOTKEYSOUND); } }
+        public bool IsOnOffSirenEnabled { get; set; }
         /// <summary>
         /// A visual indicator is displayed when the high contrast feature is on.This value is not currently used and is ignored.
         /// </summary>
-        public bool IsVisualIndicatorEnabled { get { return this.flags.HasFlag(Flags.HCF_INDICATOR); } }
-        public string ThemeName { get; }
-
-        private Flags flags;
+        //public bool IsVisualIndicatorEnabled { get; set; }
+        public ColorSchemes Theme { get; set; }
 
         public HighContrast()
         {
             var structure = GetSystemParameters();
-            this.flags = (Flags)structure.dwFlags;
-            this.ThemeName = Marshal.PtrToStringAuto(structure.lpszDefaultScheme);
+            var flags = (Flags)structure.dwFlags;
+
+            this.IsHighContrastAvailable = flags.HasFlag(Flags.HCF_AVAILABILE);
+            this.IsConfirmDialogEnabled = flags.HasFlag(Flags.HCF_CONFIRMHOTKEY);
+            this.IsHighContrastOn = flags.HasFlag(Flags.HCF_HIGHCONTRASTON);
+            this.IsHotKeyActive = flags.HasFlag(Flags.HCF_HOTKEYACTIVE);
+            this.IsHotKeyAvailable = flags.HasFlag(Flags.HCF_HOTKEYAVAILABLE);
+            this.IsOnOffSirenEnabled = flags.HasFlag(Flags.HCF_HOTKEYSOUND);
+
+            this.Theme = GetColorSchemeEnum(Marshal.PtrToStringAuto(structure.lpszDefaultScheme));
+
+        }
+
+        private Flags BuildFlags()
+        {
+            Flags flags = 0x00;
+            if (IsHighContrastAvailable)
+                flags |= Flags.HCF_AVAILABILE;
+            if (IsConfirmDialogEnabled)
+                flags |= Flags.HCF_CONFIRMHOTKEY;
+            if (IsHighContrastOn)
+                flags |= Flags.HCF_HIGHCONTRASTON;
+            if (IsHotKeyActive)
+                flags |= Flags.HCF_HOTKEYACTIVE;
+            if (IsHotKeyAvailable)
+                flags |= Flags.HCF_HOTKEYAVAILABLE;
+            if (IsOnOffSirenEnabled)
+                flags |= Flags.HCF_HOTKEYSOUND;
+
+            return flags;
         }
 
         private Win32Struct GetSystemParameters()
@@ -70,35 +96,34 @@ namespace GPII.SystemSettings
             return description;
         }
 
+        private ColorSchemes GetColorSchemeEnum(string scheme)
+        {
+            if (scheme == "High Contrast Black") return ColorSchemes.HighContrastBlack;
+            if (scheme == "High Contrast White") return ColorSchemes.HighContrastWhite;
+            return ColorSchemes.Default;
+        }
 
-        private void SetSystemParameters(Flags flags, ColorSchemes scheme)
+
+        /// <summary>
+        /// Applies the HighContrast instance's current state to the system
+        /// </summary>
+        /// <example>
+        /// // turn high contrast on
+        /// var hc = new HighContrast();
+        /// hc.IsHighContrastOn = true;
+        /// hc.Apply();
+        /// </example>
+        public void Apply()
         {
             Win32Struct win32Struct = new Win32Struct();
-            string colorSchemeText = GetColorSchemeText(scheme);
+            string colorSchemeText = GetColorSchemeText(this.Theme);
             win32Struct.lpszDefaultScheme = Marshal.StringToHGlobalUni(colorSchemeText);
-            win32Struct.dwFlags = (int)flags;
+            win32Struct.dwFlags = (int)BuildFlags();
             win32Struct.cbSize = Marshal.SizeOf(win32Struct);
             bool result = SystemParametersInfo(uiActions.SPI_SETHIGHCONTRAST, win32Struct.cbSize, ref win32Struct, 0);
             Marshal.FreeHGlobal(win32Struct.lpszDefaultScheme); // TODO: Ensure this memory is freed via try/catch/finally
             if (!result) throw new System.ComponentModel.Win32Exception();
         }
-
-
-        public void TurnOn(ColorSchemes scheme)
-        {
-            if (!flags.HasFlag(Flags.HCF_HIGHCONTRASTON))
-            {
-                flags |= Flags.HCF_HIGHCONTRASTON;
-                SetSystemParameters(flags, scheme);
-            }
-        }
-
-        public void TurnOff()
-        {
-            flags &= ~Flags.HCF_HIGHCONTRASTON; // remove the ON bit if set
-            SetSystemParameters(flags, ColorSchemes.Default);
-        }
-
 
         /// <summary>
         /// Structure used in Windows API to get/set high contrast settings
