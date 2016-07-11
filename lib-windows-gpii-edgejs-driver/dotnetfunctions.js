@@ -33,3 +33,21 @@ exports.send_and_return_json = edge.func({
     typeName: 'GPII.edge.EdgeBindings',
     methodName: 'SendAndReturnJSON' 
 });
+
+exports.launch_process = edge.func({
+ assemblyFile: assemblyLocation,
+    typeName: 'GPII.edge.EdgeBindings',
+    methodName: 'LaunchProcess' 
+});
+
+exports.kill_process = edge.func({
+ assemblyFile: assemblyLocation,
+    typeName: 'GPII.edge.EdgeBindings',
+    methodName: 'KillAllProcessesByName' 
+});
+
+exports.is_process_running = edge.func({
+ assemblyFile: assemblyLocation,
+    typeName: 'GPII.edge.EdgeBindings',
+    methodName: 'IsProcessRunning' 
+});

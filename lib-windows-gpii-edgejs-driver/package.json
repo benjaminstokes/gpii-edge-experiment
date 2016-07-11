@@ -12,6 +12,7 @@
     ".net"
   ],
   "dependencies": {
+    "async": "^2.0.0-rc.6",
     "edge": "latest"
   },
   "author": "Benjamin Stokes",
