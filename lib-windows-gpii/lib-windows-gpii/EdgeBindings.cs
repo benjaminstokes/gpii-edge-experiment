@@ -42,5 +42,15 @@ namespace GPII.edge
         {
             return input;
         }
+
+        public async Task<object> IsProcessRunningByName(object input)
+        {
+            return input;
+        }
+
+        public async Task<object> KillProcessesByName(object input)
+        {
+            return input;
+        }
     }
 }

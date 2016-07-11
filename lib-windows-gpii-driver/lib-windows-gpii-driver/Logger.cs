@@ -14,5 +14,11 @@ namespace GPII.drivers
         {
             Console.WriteLine(string.Format("{0} {1}", DateTime.Now.ToString(datetimeFormat), msg));
         }
+
+        public static void LogBitnessInfo()
+        {
+            Debug("Operating system bitness: " + (Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit"));
+            Debug("Process bitness: " + (Environment.Is64BitProcess ? "64-bit" : "32-bit"));
+        }
     }
 }

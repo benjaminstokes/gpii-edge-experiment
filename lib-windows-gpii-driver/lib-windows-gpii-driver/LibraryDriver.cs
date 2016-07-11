@@ -14,8 +14,10 @@ namespace GPII.drivers
             //HighContrastDriver.TestMultipleInstantionations();
             //StickyKeysDriver.ToggleStickyKeys();
 
-            HighContrastDriver.TestEmptyStringTheme();
+            //HighContrastDriver.TestEmptyStringTheme();
             //HighContrastDriver.TurnOnDefaultHighContrast();
+
+            ProcessDriver.DoTests();
 
             Console.ReadLine();
         }
