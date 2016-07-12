@@ -13,6 +13,15 @@ var processes = require("./processes.js");
 //highcontrast.toggle_on_off();
 //jsontest.test_send_and_return();
 
+
+
+console.log("Testing processes syncrounously");
+processes.test_process_control_syncrounous("osk");
+processes.test_process_control_syncrounous("notepad");
+processes.test_process_control_syncrounous("calc");
+
+
+console.log("Testing processes asyncrounously");
 async.series([
    function(callback){ processes.test_process_control("osk", callback); },
    function(callback){ processes.test_process_control("notepad", callback);  },

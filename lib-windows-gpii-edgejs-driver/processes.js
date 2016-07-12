@@ -19,6 +19,21 @@ var check_if_running = function(processWrapper){
     setTimeout(function(){dotnet.is_process_running(processWrapper, is_running_callback);}, 100);
 }
 
+exports.test_process_control_syncrounous = function(processName) {
+    var processWrapper = {};
+    processWrapper.processName = processName;
+    var isRunning = dotnet.is_process_running(processWrapper, true);
+    console.log(processName + " running: " + isRunning);
+    console.log("Launching " + processName);
+    dotnet.launch_process(processWrapper, true);
+    isRunning = dotnet.is_process_running(processWrapper, true);
+    console.log(processName + " running: " + isRunning);
+    console.log("Killing " + processName);
+    dotnet.kill_process(processWrapper, true);
+    isRunning = dotnet.is_process_running(processWrapper, true);   
+    console.log(processName + " running: " + isRunning); 
+}
+
 // Convert to promises?
 exports.test_process_control = function(processName, callback){
     var processWrapper = {};
