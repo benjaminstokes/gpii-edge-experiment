@@ -9,9 +9,18 @@ using System.Threading;
 
 namespace GPII.drivers
 {
-    class HighContrastDriver
+    class HighContrastDriver : ITestDriver
     {
-        public static void PollHighConttrastUntilSettingIs(bool until)
+        public void DoTests()
+        {
+            Logger.Debug("Running HighContrast tests");
+            TestMultipleInstantionations();
+            TestEmptyStringTheme();
+            ToggleHighContrast();
+        }
+
+
+        public void PollHighConttrastUntilSettingIs(bool until)
         {
             Logger.Debug("Entering PollHighConttrastUntilSettingIs");
             HighContrast hc = new HighContrast();
@@ -25,7 +34,7 @@ namespace GPII.drivers
         /// <summary>
         /// A previous marshalling bug caused crashing if multiple HighContrasts were created in rapid succession
         /// </summary>
-        public static void TestMultipleInstantionations()
+        private void TestMultipleInstantionations()
         {
             Logger.Debug("Entering TestMultipleInstantionations");
             var hc3 = new HighContrast();
@@ -36,7 +45,7 @@ namespace GPII.drivers
             }
         }
 
-        public static void TestEmptyStringTheme()
+        private void TestEmptyStringTheme()
         {
             var highContrast = new HighContrast();
 
@@ -53,15 +62,17 @@ namespace GPII.drivers
             Assert(new HighContrast().Theme == HighContrast.ColorSchemes.Default);  // This WILL fail because the Theme value is still HighContrastWhite.
         }
 
-        public static void TurnOnDefaultHighContrast()
+        /*
+        private static void TurnOnDefaultHighContrast()
         {
             var highContrast = new HighContrast();
             highContrast.IsHighContrastOn = true;
             highContrast.Theme = HighContrast.ColorSchemes.HighContrastBlack;
             highContrast.Apply();
         }
+        */
 
-        public static void ToggleHighContrast()
+        private void ToggleHighContrast()
         {
             Logger.Debug("Entering ToggleHighContrast");
 
@@ -99,7 +110,7 @@ namespace GPII.drivers
             WaitForContrastChange();
         }
 
-        private static void WaitForContrastChange()
+        private void WaitForContrastChange()
         {
             int sleepTimeInSeconds = 10;
             Thread.Sleep(sleepTimeInSeconds * 1000);

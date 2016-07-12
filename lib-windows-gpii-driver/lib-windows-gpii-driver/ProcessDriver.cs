@@ -9,18 +9,18 @@ using System.Diagnostics;
 
 namespace GPII.drivers
 {
-    public class ProcessDriver
+    public class ProcessDriver : ITestDriver
     {
-        public static void DoTests()
+        public void DoTests()
         {
+            Logger.Debug("Running Process Driver tests");
             Logger.LogBitnessInfo();
-
             TestProcessRunningDetection("osk");
             TestProcessRunningDetection("notepad");
             TestProcessRunningDetection("calc");
         }
 
-        private static void TestProcessRunningDetection(string processName = "osk")
+        private void TestProcessRunningDetection(string processName = "osk")
         {
             Logger.Debug("TestProcessRunningDetection for " + processName);
             var processController = new ProcessController(processName);

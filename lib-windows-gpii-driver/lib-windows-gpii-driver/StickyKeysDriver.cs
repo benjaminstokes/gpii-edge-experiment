@@ -9,17 +9,23 @@ using static System.Diagnostics.Debug;
 
 namespace GPII.drivers
 {
-    class StickyKeysDriver
+    class StickyKeysDriver : ITestDriver
     {
-        public static void ToggleStickyKeys()
+        private void ToggleStickyKeys()
         {
             StickyKeys stickyKeys = new StickyKeys();
 
             stickyKeys.TurnOn();
-            Assert(new StickyKeys().IsOn);
+            Assert(new StickyKeys().IsOn, "Sticky Keys should be on");
 
             stickyKeys.TurnOff();
-            Assert(new StickyKeys().IsOn == false);
+            Assert(new StickyKeys().IsOn == false, "Sticky keys should be off");
+        }
+
+        public void DoTests()
+        {
+            Logger.Debug("Running StickyKeys tests");
+            ToggleStickyKeys();
         }
     }
 }

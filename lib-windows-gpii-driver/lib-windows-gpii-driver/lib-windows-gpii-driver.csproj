@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HighContrastDriver.cs" />
+    <Compile Include="ITestDriver.cs" />
     <Compile Include="LibraryDriver.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="ProcessDriver.cs" />

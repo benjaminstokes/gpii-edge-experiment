@@ -1,6 +1,7 @@
 ﻿
 
 using System;
+using System.Collections.Generic;
 
 namespace GPII.drivers
 {
@@ -9,16 +10,17 @@ namespace GPII.drivers
         [STAThread]
         static void Main(string[] args)
         {
+            var drivers = new List<ITestDriver>();
+            drivers.Add(new ProcessDriver());
+            drivers.Add(new StickyKeysDriver());
+            drivers.Add(new HighContrastDriver());
 
-            //HighContrastDriver.ToggleHighContrast();
-            //HighContrastDriver.TestMultipleInstantionations();
-            //StickyKeysDriver.ToggleStickyKeys();
+            foreach (var driver in drivers)
+            {
+                driver.DoTests();
+            }
 
-            //HighContrastDriver.TestEmptyStringTheme();
-            //HighContrastDriver.TurnOnDefaultHighContrast();
-
-            ProcessDriver.DoTests();
-
+            Logger.Debug("tests completed");
             Console.ReadLine();
         }
     }
