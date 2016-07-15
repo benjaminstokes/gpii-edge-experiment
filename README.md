@@ -20,6 +20,9 @@ You will need [Visual Studio 2015 (Community)](https://www.visualstudio.com/en-u
 3. Run npm install within `lib-windows-gpii-edgejs-driver` folder
 4. Build `lib-windows-gpii` with Visual Studio to ensure a .dll file is created in the project's Debug folder
 5. Run node index.js to demonstrate accessing Windows API functionality via node->edge->.NET 
+6. Build lib-windows-gpii-driver
+7. Run the lib-windows-gpii-driver.exe to demonstrate Windows API use from just .NET
+
 
 ##Tracing the code
 Lets look at High Contrast as an example:

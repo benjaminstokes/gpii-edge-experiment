@@ -15,7 +15,7 @@ namespace GPII.drivers
         {
             Logger.Debug("Running Process Driver tests");
             Logger.LogBitnessInfo();
-            TestProcessRunningDetection("osk");
+            TestProcessRunningDetection("mspaint");
             TestProcessRunningDetection("notepad");
             TestProcessRunningDetection("calc");
         }
@@ -28,7 +28,7 @@ namespace GPII.drivers
 
             processController.Start();
             Assert(processController.IsAnyProcessRunning(), "Process should be running");
-
+            
             processController.KillAll();
             Assert(processController.IsAnyProcessRunning() == false, "Process should have been killed");
         }

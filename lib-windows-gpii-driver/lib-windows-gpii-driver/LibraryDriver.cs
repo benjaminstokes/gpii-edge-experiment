@@ -20,7 +20,7 @@ namespace GPII.drivers
                 driver.DoTests();
             }
 
-            Logger.Debug("tests completed");
+            Logger.Debug("Tests completed. Press any key to exit.");
             Console.ReadLine();
         }
     }

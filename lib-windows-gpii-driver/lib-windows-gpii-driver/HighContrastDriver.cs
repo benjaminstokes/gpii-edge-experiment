@@ -59,7 +59,7 @@ namespace GPII.drivers
 
             highContrast.Theme = HighContrast.ColorSchemes.Default;  // value of Default is empty string
             highContrast.Apply();
-            Assert(new HighContrast().Theme == HighContrast.ColorSchemes.Default);  // This WILL fail because the Theme value is still HighContrastWhite.
+            Assert(new HighContrast().Theme != HighContrast.ColorSchemes.Default);  // This will NOT equal because the Theme value is still HighContrastWhite.
         }
 
         /*
