@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using GPII.SystemSettings;
+using GPII.Settings;
 
 namespace GPII.WindowsAPI
 {

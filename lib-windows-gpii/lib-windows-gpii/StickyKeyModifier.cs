@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GPII.SystemSettings
+namespace GPII.Settings
 {
     public class StickyKeyModifier
     {

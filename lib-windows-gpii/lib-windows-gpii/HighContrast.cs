@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static GPII.WindowsAPI.user32;
 
-namespace GPII.SystemSettings
+namespace GPII.Settings
 {
     public class HighContrast
     {

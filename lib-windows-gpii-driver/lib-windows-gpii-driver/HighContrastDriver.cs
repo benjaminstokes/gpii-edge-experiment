@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static System.Diagnostics.Debug;
-using GPII.SystemSettings;
+using GPII.Settings;
 using System.Threading;
 
 namespace GPII.drivers
