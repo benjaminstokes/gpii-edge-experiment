@@ -37,7 +37,7 @@ namespace GPII
             ncm.MenuFont.IsUnderline = true;
             ncm.Apply();
 
-            // Test settings were saved in system
+            // Test settings were saved in system. We use the ncmAssert instance for assertions            
             var ncmAssert = new NonClientMetrics();
             Assert(ncmAssert.ScrollWidth == 30, "ScrollWidth should have been set");
             Assert(ncmAssert.ScrollHeight == 30, "ScrollHeight should have been set");
@@ -55,6 +55,7 @@ namespace GPII
             Assert(ncmAssert.SmallCaptionFont.IsUnderline == ncmOriginal.SmallCaptionFont.IsUnderline, "SmallCaptionFont should have been restored");
             Assert(ncmAssert.MenuFont.IsItalic == ncmOriginal.MenuFont.IsItalic, "MenuFont should have been restored (italics)");
             Assert(ncmAssert.MenuFont.IsUnderline == ncmOriginal.MenuFont.IsUnderline, "MenuFont should have been restored (underline)");
+            // TODO: Should the equality logic be implemented in NonClientMetrics class so we can write (ncm1 == ncm2) in test code?
         }
 
         // Uses reflection to test each LogFont and Boolean style (italic, underline, etc) combinaton. Each style is toggled to true then false.
