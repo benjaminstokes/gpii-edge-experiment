@@ -51,6 +51,7 @@
     <Compile Include="ITestDriver.cs" />
     <Compile Include="LibraryDriver.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="NonClientMetricsDriver.cs" />
     <Compile Include="ProcessDriver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StickyKeysDriver.cs" />

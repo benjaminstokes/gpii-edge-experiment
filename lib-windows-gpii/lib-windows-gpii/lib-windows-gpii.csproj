@@ -44,11 +44,13 @@
   <ItemGroup>
     <Compile Include="EdgeBindings.cs" />
     <Compile Include="HighContrast.cs" />
+    <Compile Include="LogFont.cs" />
+    <Compile Include="NonClientMetrics.cs" />
     <Compile Include="Process.cs" />
     <Compile Include="StickyKeyModifier.cs" />
     <Compile Include="StickyKeys.cs" />
     <Compile Include="todo.cs" />
-    <Compile Include="user32.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
