@@ -67,5 +67,24 @@ namespace GPII.edge
             process.KillAll();
             return null;
         }
+
+        public async Task<object> GetScrollWidth(dynamic input)
+        {
+            return new NonClientMetrics().ScrollWidth;
+        }
+
+        public async Task<object> SetScrollWidth(dynamic input)
+        {
+            int scrollWidth = (int)input.scrollWidth;
+            NonClientMetrics ncm = new NonClientMetrics();
+            ncm.ScrollWidth = scrollWidth;
+            ncm.Apply();
+            return new NonClientMetrics().ScrollWidth;
+        }
+
+        public async Task<object> DoDotNetException(dynamic input)
+        {
+            throw new NotImplementedException("what happens in edgejs?");
+        }
     }
 }

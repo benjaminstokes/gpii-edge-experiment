@@ -51,3 +51,21 @@ exports.is_process_running = edge.func({
     typeName: 'GPII.edge.EdgeBindings',
     methodName: 'IsProcessRunning' 
 });
+
+exports.get_scroll_width = edge.func({
+ assemblyFile: assemblyLocation,
+    typeName: 'GPII.edge.EdgeBindings',
+    methodName: 'GetScrollWidth' 
+});
+
+exports.set_scroll_width = edge.func({
+ assemblyFile: assemblyLocation,
+    typeName: 'GPII.edge.EdgeBindings',
+    methodName: 'SetScrollWidth' 
+});
+
+exports.do_dotnet_exception = edge.func({
+ assemblyFile: assemblyLocation,
+    typeName: 'GPII.edge.EdgeBindings',
+    methodName: 'DoDotNetException' 
+});
