@@ -1,6 +1,4 @@
-﻿
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace GPII.drivers
@@ -11,9 +9,9 @@ namespace GPII.drivers
         static void Main(string[] args)
         {
             var drivers = new List<ITestDriver>();
-            // drivers.Add(new ProcessDriver());
-            //  drivers.Add(new StickyKeysDriver());
-            //  drivers.Add(new HighContrastDriver());
+            drivers.Add(new ProcessDriver());
+            drivers.Add(new StickyKeysDriver());
+            drivers.Add(new HighContrastDriver());
             drivers.Add(new NonClientMetricsDriver());
 
             foreach (var driver in drivers)

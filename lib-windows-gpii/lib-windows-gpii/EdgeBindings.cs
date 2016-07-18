@@ -6,6 +6,9 @@ using System.IO;
 
 namespace GPII.edge
 {
+    /// <summary>
+    /// Provides entry points to lib-windows-gpii functionality that can be called by Edge.js.
+    /// </summary>
     class EdgeBindings
     {
         public async Task<object> TurnOnStickyKeys(dynamic input)

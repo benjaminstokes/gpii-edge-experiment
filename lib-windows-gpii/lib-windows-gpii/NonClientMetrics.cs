@@ -9,6 +9,14 @@ using static GPII.WindowsAPI.NativeMethods;
 
 namespace GPII.Settings
 {
+    /// <summary>
+    /// Provides a .NET API to the NonClientMetrics related to the SystemParametersInfo function in the Windows API
+    /// </summary>  
+    /// <example>
+    /// NonClientMetrics ncm = new NonClientMetrics();  // get an instance
+    /// ncm.ScrollWidth = 30;                           // change a value
+    /// ncm.Apply();                                    // apply the changes to the OS
+    /// </example>
     public class NonClientMetrics
     {
         public int BorderWidth { get { return win32Struct.iBorderWidth; } set { win32Struct.iBorderWidth = value; } }

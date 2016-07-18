@@ -57,7 +57,7 @@ namespace GPII
             Assert(ncmAssert.MenuFont.IsUnderline == ncmOriginal.MenuFont.IsUnderline, "MenuFont should have been restored (underline)");
         }
 
-        // For each LogFont and Boolean style (italic, underline, etc), test turning it to true and false on the system
+        // Uses reflection to test each LogFont and Boolean style (italic, underline, etc) combinaton. Each style is toggled to true then false.
         public void TestBooleanLogFontStyles()
         {
             foreach (var logFontProperty in typeof(NonClientMetrics).GetProperties())
@@ -84,7 +84,7 @@ namespace GPII
 
         /// <summary>
         /// NonClientMetrics has so many integer properties that we're going to use reflection to generate the tests for each property
-        /// with a common pattern of get the value, double it, restore the original
+        /// with a common pattern of get the value, change it, restore the original
         /// </summary>
         public void TestAllInt32Properties()
         {
@@ -96,18 +96,18 @@ namespace GPII
             properties.Add("ScrollHeight", 8); // 8 is minimum
             properties.Add("CaptionWidth", 28); // 28 is default
             properties.Add("CaptionHeight", 17); // 17 is default
-            properties.Add("SmallCaptionWidth", 25); // 17 is default, can't change
-            properties.Add("SmallCaptionHeight", 25); // 17 is default,  can't change
-            properties.Add("MenuWidth", 15); // 19 is default, 8 is minimum. can't change
-            properties.Add("MenuHeight", 25); // 19 is default, 17 is minimum. can't change
-            properties.Add("PaddedBorderWidth", 5); // 0 is default //works
+            properties.Add("SmallCaptionWidth", 25); // 17 is default
+            properties.Add("SmallCaptionHeight", 25); // 17 is default
+            properties.Add("MenuWidth", 15); // 19 is default, 8 is minimum
+            properties.Add("MenuHeight", 25); // 19 is default, 17 is minimum
+            properties.Add("PaddedBorderWidth", 5); // 0 is default 
 
             Type type = typeof(NonClientMetrics);
-            foreach (var kvp in properties)
+            foreach (var keyValuePair in properties)
             {
-                PropertyInfo p = type.GetProperty(kvp.Key);
+                PropertyInfo p = type.GetProperty(keyValuePair.Key);
                 Logger.Debug("Testing NonClientMetrics set & restore of " + p.Name);
-                TestInt32Property(p, kvp.Value);
+                TestInt32Property(p, keyValuePair.Value);
             }
         }
 
