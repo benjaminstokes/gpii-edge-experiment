@@ -4,7 +4,7 @@ using GPII.Settings;
 
 namespace GPII.WindowsAPI
 {
-    public class user32
+    public class NativeMethods
     {
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -14,15 +14,22 @@ namespace GPII.WindowsAPI
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool SystemParametersInfo(uiActions uiAction, int uiParam, ref HighContrast.Win32Struct pvParam, SPIFlags fWinIni);
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        public static extern bool SystemParametersInfo(uiActions uiAction, int uiParam, ref NonClientMetrics.NONCLIENTMETRICS pvParam, SPIFlags fWinIni);
+
+
         public enum uiActions : uint
         {
             SPI_GETHIGHCONTRAST = 0x0042,
             SPI_GETSHOWSOUNDS = 0x0038,
             SPI_GETSTICKYKEYS = 0x003A,
+            SPI_GETNONCLIENTMETRICS = 0x0029,
 
             SPI_SETHIGHCONTRAST = 0x0043,
             SPI_SETSHOWSOUNDS = 0x0039,
-            SPI_SETSTICKYKEYS = 0x003B
+            SPI_SETSTICKYKEYS = 0x003B,
+            SPI_SETNONCLIENTMETRICS = 0x002A
         }
 
         [Flags]
