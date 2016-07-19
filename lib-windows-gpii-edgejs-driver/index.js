@@ -32,13 +32,17 @@ async.series([
 */
 
 
-
+jsontest.test_send_and_return();
+/*
 console.log("Testing nonclientmetrics scroll width syncronously");
 nonclientmetrics.test_nonclientmetrics_syncrounous(35);
 
 console.log("Testing nonclientmetrics scroll width syncronously");
 nonclientmetrics.test_nonclientmetrics_syncrounous(50);
 
+var ncm = nonclientmetrics.get_nonclientmetrics_syncrounous();
+console.log("NonClientMetrics: " + JSON.stringify(ncm, null, 2));
+*/
 
-dotnetexception.cause_dotnet_exception();
+//dotnetexception.cause_dotnet_exception();
 

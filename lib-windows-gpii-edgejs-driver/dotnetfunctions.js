@@ -52,6 +52,12 @@ exports.is_process_running = edge.func({
     methodName: 'IsProcessRunning' 
 });
 
+exports.get_nonclientmetrics = edge.func({
+ assemblyFile: assemblyLocation,
+    typeName: 'GPII.edge.EdgeBindings',
+    methodName: 'GetNonClientMetrics' 
+});
+
 exports.get_scroll_width = edge.func({
  assemblyFile: assemblyLocation,
     typeName: 'GPII.edge.EdgeBindings',

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,6 +46,32 @@ namespace GPII.Settings
             this.MessageFont = new LogFont(win32Struct.lfMessageFont);
             this.CaptionFont = new LogFont(win32Struct.lfCaptionFont);
             this.SmallCaptionFont = new LogFont(win32Struct.lfSmCaptionFont);
+        }
+
+        public void UseSettings(dynamic input)
+        {
+            this.BorderWidth = (int)input.BorderWidth;
+            this.ScrollWidth = (int)input.ScrollWidth;
+            this.ScrollHeight = (int)input.ScrollHeight;
+            this.CaptionWidth = (int)input.CaptionWidth;
+            this.SmallCaptionWidth = (int)input.SmallCaptionWidth;
+            this.SmallCaptionHeight = (int)input.SmallCaptionHeight;
+            this.MenuWidth = (int)input.MenuWidth;
+            this.MenuHeight = (int)input.MenuHeight;
+            this.PaddedBorderWidth = (int)input.PaddedBorderWidth;
+
+            UseFontSetting(this.CaptionFont, (dynamic)input.CaptionFont);
+            UseFontSetting(this.MenuFont, (dynamic)input.MenuFont);
+            UseFontSetting(this.MessageFont, (dynamic)input.MessageFont);
+            UseFontSetting(this.SmallCaptionFont, (dynamic)input.SmallCaptionFont);
+            UseFontSetting(this.StatusFont, (dynamic)input.StatusFont);
+        }
+
+        private void UseFontSetting(LogFont logFont, dynamic input)
+        {
+            logFont.IsItalic = (bool)input.IsItalic;
+            logFont.IsStrikeout = (bool)input.IsStrikeout;
+            logFont.IsUnderline = (bool)input.IsUnderline;
         }
 
         private NONCLIENTMETRICS GetSystemParameters()

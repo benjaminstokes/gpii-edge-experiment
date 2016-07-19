@@ -3,6 +3,9 @@ using System.Threading.Tasks;
 using GPII.Settings;
 using GPII.SystemProcess;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace GPII.edge
 {
@@ -69,6 +72,19 @@ namespace GPII.edge
             ProcessController process = new ProcessController(processName);
             process.KillAll();
             return null;
+        }
+
+        public async Task<object> GetNonClientMetrics(dynamic input)
+        {
+            return new NonClientMetrics();
+        }
+
+        public async Task<object> SetNonClientMetrics(dynamic input)
+        {
+            var ncm = new NonClientMetrics();
+            ncm.UseSettings(input);
+            ncm.Apply();
+            return new NonClientMetrics();
         }
 
         public async Task<object> GetScrollWidth(dynamic input)

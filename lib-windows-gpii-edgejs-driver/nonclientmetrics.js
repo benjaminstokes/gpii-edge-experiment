@@ -17,3 +17,7 @@ exports.test_nonclientmetrics_syncrounous = function(scrollWidth) {
     currentScrollWidth = dotnet.set_scroll_width(inputWrapper, true);
     console.log("scroll width restored to: " + originalScrollWidth);
 };
+
+exports.get_nonclientmetrics_syncrounous = function(){
+    return dotnet.get_nonclientmetrics({}, true);
+};

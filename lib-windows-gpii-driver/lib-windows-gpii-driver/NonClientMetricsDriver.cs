@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using GPII.Settings;
 using static System.Diagnostics.Debug;
 using System.Reflection;
+using System.Dynamic;
 
 namespace GPII
 {
@@ -15,6 +16,7 @@ namespace GPII
         public void DoTests()
         {
             Logger.Debug("Running NonClientMetricsDriver");
+            TestUseOfDynamic();
             TestProfile();
             TestBooleanLogFontStyles();
             TestAllInt32Properties();
@@ -136,6 +138,28 @@ namespace GPII
 
             // Assert the original setting was restored
             Assert((int)p.GetValue(new NonClientMetrics()) == originalValue);
+        }
+
+        public void TestUseOfDynamic()
+        {
+            dynamic settings = new ExpandoObject();
+            settings.BorderWidth = 10;
+            settings.ScrollWidth = 20;
+            
+            NonClientMetrics ncmOriginal = new NonClientMetrics();
+
+            NonClientMetrics ncmModifier = new NonClientMetrics();
+            ncmModifier.UseSettings(settings);
+            ncmModifier.Apply();
+
+            var ncmAssert = new NonClientMetrics();
+            Assert(ncmAssert.BorderWidth == settings.BorderWidth);
+            Assert(ncmAssert.ScrollWidth == settings.ScrollWidth);
+
+            ncmOriginal.Apply();
+            ncmAssert = new NonClientMetrics();
+            Assert(ncmAssert.BorderWidth == ncmOriginal.BorderWidth);
+            Assert(ncmAssert.ScrollWidth == ncmOriginal.ScrollWidth);            
         }
     }
 }
